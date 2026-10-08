@@ -1,48 +1,456 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Трекер полезных привычек</title>
-    
-    <link rel="stylesheet" href="styles/index.css">
-</head>
-<body>
-    <header>
-        <div class="container">
-            <ul class="nav__menu">
-                <li class="nav__element">
-                    <button 
-                    id="main"
-                    class="nav__button">
-                        Главная</button>
-                </li>
-
-                <li class="nav__element">
-                    <button 
-                    id="example"
-                    class="nav__button">
-                        Пример</button>
-                </li>
-            </ul>
-        </div>
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#245b46" />
+    <meta
+      name="description"
+      content="Ваш спокойный путь к полезным привычкам. Отмечайте маленькие шаги и наблюдайте за прогрессом."
+    />
+    <title>Ритм — трекер полезных привычек</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23245b46'/%3E%3Cpath d='M19 45 45 19M23 19h22v22' fill='none' stroke='%23fff' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="styles/index.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Перейти к содержимому</a>
+    <header class="header">
+      <div class="container header__inner">
+        <a
+          class="brand"
+          href="#dashboard"
+          data-section="dashboard"
+          aria-label="Ритм — на дашборд"
+          ><span class="brand__mark" aria-hidden="true">↗</span>ритм<span
+            class="brand__dot"
+            >.</span
+          ></a
+        >
+        <nav aria-label="Основная навигация">
+          <ul class="nav__menu">
+            <li>
+              <button
+                type="button"
+                data-section="dashboard"
+                class="nav__button nav__button--active"
+                aria-current="page"
+              >
+                Дашборд
+              </button>
+            </li>
+            <li>
+              <button type="button" data-section="habits" class="nav__button">
+                Привычки
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                data-section="statistics"
+                class="nav__button"
+              >
+                Статистика
+              </button>
+            </li>
+            <li>
+              <button type="button" data-section="profile" class="nav__button">
+                Профиль
+              </button>
+            </li>
+          </ul>
+        </nav>
+        <span class="local-badge"
+          ><span aria-hidden="true">●</span> На этом устройстве</span
+        >
+      </div>
     </header>
-
-    <main>
-        <div class="container section" id="main" style="display: block;">
-            <h1>Трекер полезных привычек</h1>
-            <p>Сайт для оылвдаофыжлаофывжлаофылваожфдылвоажфывоажфдлыадлжв</p>
+    <main id="main-content" class="container main" tabindex="-1">
+      <div id="storage-error" class="error-banner" role="alert" hidden></div>
+      <section
+        id="dashboard"
+        class="section section--active"
+        aria-labelledby="dashboard-title"
+      >
+        <div class="page-heading">
+          <div>
+            <p id="current-date" class="eyebrow"></p>
+            <h1 id="dashboard-title">Маленькие шаги. Большие перемены.</h1>
+            <p id="greeting" class="page-description">
+              Начните с одной привычки — и найдите свой ритм.
+            </p>
+          </div>
+          <button
+            type="button"
+            class="button button--primary"
+            data-action="add"
+          >
+            <span aria-hidden="true">＋</span> Добавить привычку
+          </button>
         </div>
-        <div class="container section" id="example">
-            <h1>Пример</h1>
-            <p>рыловарфдывлаыловрафылоралвоыафырадловыдла</p>
+        <div class="dashboard-overview">
+          <article class="progress-card">
+            <div>
+              <p class="eyebrow">ВАШ РИТМ СЕГОДНЯ</p>
+              <h2>
+                <span id="today-completed">0</span
+                ><span class="progress-card__total">
+                  из <span id="today-total">0</span></span
+                >
+              </h2>
+              <p id="progress-caption">
+                Каждая привычка начинается с первого шага.
+              </p>
+            </div>
+            <div class="progress-ring">
+              <svg viewBox="0 0 100 100" aria-hidden="true">
+                <circle
+                  class="progress-ring__track"
+                  cx="50"
+                  cy="50"
+                  r="42"
+                ></circle>
+                <circle
+                  id="progress-ring-value"
+                  class="progress-ring__value"
+                  cx="50"
+                  cy="50"
+                  r="42"
+                  pathLength="100"
+                  stroke-dasharray="0 100"
+                ></circle></svg
+              ><strong id="today-percent">0%</strong><span>выполнено</span>
+            </div>
+            <progress
+              id="today-progress"
+              max="100"
+              value="0"
+              class="sr-only"
+              aria-label="Прогресс за сегодня"
+            >
+              0%
+            </progress>
+          </article>
+          <article class="metric-card">
+            <span class="metric-icon" aria-hidden="true">↗</span>
+            <p>Лучшая текущая серия</p>
+            <strong id="dashboard-streak">0 дней</strong
+            ><span class="muted">Продолжайте в своём темпе</span>
+          </article>
+          <article class="metric-card">
+            <span class="metric-icon metric-icon--gold" aria-hidden="true"
+              >✓</span
+            >
+            <p>Выполнено за неделю</p>
+            <strong id="dashboard-week">0</strong
+            ><span class="muted">За последние 7 дней</span>
+          </article>
         </div>
+        <div class="dashboard-columns">
+          <div class="panel today-panel">
+            <div class="panel-heading">
+              <div>
+                <h2>Привычки на сегодня</h2>
+                <p class="muted">Один день, один шаг за раз</p>
+              </div>
+              <span id="today-count" class="count-badge">0</span>
+            </div>
+            <div id="dashboard-habits" class="habit-list"></div>
+          </div>
+          <aside class="dashboard-aside">
+            <div class="panel">
+              <div class="panel-heading">
+                <h2>Эта неделя</h2>
+                <button
+                  type="button"
+                  class="text-button"
+                  data-section="statistics"
+                >
+                  Подробнее <span aria-hidden="true">↗</span>
+                </button>
+              </div>
+              <div
+                id="dashboard-chart"
+                class="weekly-chart weekly-chart--compact"
+              ></div>
+              <p class="chart-note">Доля выполненных привычек за день</p>
+            </div>
+            <div class="encouragement">
+              <span class="eyebrow">НАПОМИНАНИЕ ДЛЯ СЕБЯ</span>
+              <p>Не обязательно идеально.<br />Достаточно регулярно.</p>
+              <span class="muted"
+                >Маленькие действия складываются в большие изменения.</span
+              ><span class="encouragement__decoration" aria-hidden="true"
+                >✳</span
+              >
+            </div>
+          </aside>
+        </div>
+      </section>
+      <section id="habits" class="section" aria-labelledby="habits-title">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">ШАГИ К ЛУЧШЕМУ</p>
+            <h1 id="habits-title">Мои привычки</h1>
+            <p class="page-description">
+              Выберите то, что важно вам. Остальное — дело практики.
+            </p>
+          </div>
+          <button
+            type="button"
+            class="button button--primary"
+            data-action="add"
+          >
+            <span aria-hidden="true">＋</span> Добавить привычку
+          </button>
+        </div>
+        <div class="section-toolbar">
+          <p id="habits-count" class="muted">Пока нет привычек</p>
+          <span class="subtle-tag">Каждый день</span>
+        </div>
+        <div id="habits-list" class="habits-grid"></div>
+      </section>
+      <section
+        id="statistics"
+        class="section"
+        aria-labelledby="statistics-title"
+      >
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">КАЖДЫЙ ШАГ ИМЕЕТ ЗНАЧЕНИЕ</p>
+            <h1 id="statistics-title">Ваш прогресс</h1>
+            <p class="page-description">
+              Посмотрите, как маленькие действия становятся устойчивым ритмом.
+            </p>
+          </div>
+          <span class="subtle-tag">Последние 7 дней</span>
+        </div>
+        <div id="statistics-summary" class="statistics-grid"></div>
+        <div class="panel statistics-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Прогресс за неделю</h2>
+              <p id="week-summary" class="muted"></p>
+            </div>
+            <span class="chart-legend"
+              ><span aria-hidden="true"></span> Выполнение, %</span
+            >
+          </div>
+          <div id="statistics-chart" class="weekly-chart"></div>
+          <p class="chart-note">
+            Процент рассчитан среди привычек, уже созданных в этот день. День
+            без привычек — 0%.
+          </p>
+        </div>
+        <div class="panel">
+          <div class="panel-heading">
+            <h2>Прогресс по привычкам</h2>
+            <span class="muted">За 7 дней</span>
+          </div>
+          <div id="habit-statistics" class="habit-statistics"></div>
+        </div>
+      </section>
+      <section id="profile" class="section" aria-labelledby="profile-title">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">ВАШ ЛИЧНЫЙ РИТМ</p>
+            <h1 id="profile-title">Профиль</h1>
+            <p class="page-description">
+              Немного о вас и о пути, который вы уже прошли.
+            </p>
+          </div>
+        </div>
+        <div class="profile-layout">
+          <div class="panel profile-card">
+            <span id="profile-avatar" class="profile-avatar" aria-hidden="true"
+              >Р</span
+            >
+            <h2 id="profile-display-name">Ваш профиль</h2>
+            <p id="profile-since" class="muted"></p>
+            <form id="profile-form" class="profile-form">
+              <label for="profile-name">Как к вам обращаться?</label
+              ><input
+                id="profile-name"
+                name="name"
+                type="text"
+                maxlength="40"
+                autocomplete="given-name"
+                placeholder="Ваше имя"
+              /><button type="submit" class="button button--primary">
+                Сохранить имя
+              </button>
+            </form>
+          </div>
+          <div class="profile-details">
+            <div id="profile-summary" class="profile-summary"></div>
+            <div class="panel">
+              <span class="metric-icon" aria-hidden="true">⌂</span>
+              <h2>Ваше пространство</h2>
+              <p class="page-description">
+                Привычки, отметки и имя сохраняются в этом браузере на этом
+                устройстве. Регистрация не нужна.
+              </p>
+              <p class="muted">
+                После перезагрузки всё останется на месте. При очистке данных
+                браузера записи будут удалены.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
-
-    <footer>
-        
+    <footer class="container footer">
+      <span
+        >ритм.
+        <span class="footer__description">Трекер полезных привычек</span></span
+      ><span>В вашем темпе, каждый день.</span>
     </footer>
-
-    <script src="js/script.js"></script>
-</body>
+    <dialog
+      id="habit-dialog"
+      class="modal"
+      aria-labelledby="habit-dialog-title"
+    >
+      <form id="habit-form">
+        <div class="modal-heading">
+          <div>
+            <p class="eyebrow">ОДИН МАЛЕНЬКИЙ ШАГ</p>
+            <h2 id="habit-dialog-title">Новая привычка</h2>
+          </div>
+          <button
+            type="button"
+            class="icon-button"
+            data-close-dialog="habit-dialog"
+            aria-label="Закрыть"
+          >
+            ×
+          </button>
+        </div>
+        <label for="habit-name"
+          >Название <span class="muted">(обязательно)</span></label
+        ><input
+          id="habit-name"
+          name="name"
+          required
+          maxlength="80"
+          placeholder="Например, читать 20 минут"
+          autocomplete="off"
+        />
+        <label for="habit-description"
+          >Описание <span class="muted">(необязательно)</span></label
+        ><textarea
+          id="habit-description"
+          name="description"
+          rows="3"
+          maxlength="240"
+          placeholder="Что поможет вам сделать первый шаг?"
+        ></textarea>
+        <label for="habit-category">Категория</label
+        ><select id="habit-category" name="category">
+          <option>Здоровье</option>
+          <option>Спорт</option>
+          <option>Саморазвитие</option>
+          <option>Работа</option>
+          <option>Отдых</option>
+          <option>Другое</option>
+        </select>
+        <fieldset class="color-fieldset">
+          <legend>Цвет привычки</legend>
+          <div class="color-options">
+            <label class="color-choice color-choice--green"
+              ><input type="radio" name="color" value="green" checked /><span
+                >Зелёный</span
+              ></label
+            ><label class="color-choice color-choice--blue"
+              ><input type="radio" name="color" value="blue" /><span
+                >Синий</span
+              ></label
+            ><label class="color-choice color-choice--purple"
+              ><input type="radio" name="color" value="purple" /><span
+                >Фиолетовый</span
+              ></label
+            ><label class="color-choice color-choice--orange"
+              ><input type="radio" name="color" value="orange" /><span
+                >Оранжевый</span
+              ></label
+            ><label class="color-choice color-choice--rose"
+              ><input type="radio" name="color" value="rose" /><span
+                >Розовый</span
+              ></label
+            >
+          </div>
+        </fieldset>
+        <p id="habit-form-error" class="form-error" role="alert"></p>
+        <div class="modal-actions">
+          <button
+            type="button"
+            class="button button--secondary"
+            data-close-dialog="habit-dialog"
+          >
+            Отмена</button
+          ><button
+            type="submit"
+            id="habit-save-button"
+            class="button button--primary"
+          >
+            Добавить привычку
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <dialog
+      id="delete-dialog"
+      class="modal modal--small"
+      aria-labelledby="delete-title"
+    >
+      <form id="delete-form">
+        <div class="modal-heading">
+          <h2 id="delete-title">Удалить привычку?</h2>
+          <button
+            type="button"
+            class="icon-button"
+            data-close-dialog="delete-dialog"
+            aria-label="Закрыть"
+          >
+            ×
+          </button>
+        </div>
+        <p id="delete-description" class="page-description"></p>
+        <p class="muted">Все её отметки выполнения тоже будут удалены.</p>
+        <div class="modal-actions">
+          <button
+            type="button"
+            class="button button--secondary"
+            data-close-dialog="delete-dialog"
+          >
+            Отмена</button
+          ><button type="submit" class="button button--danger">Удалить</button>
+        </div>
+      </form>
+    </dialog>
+    <div
+      id="notification"
+      class="notification"
+      role="status"
+      aria-live="polite"
+      hidden
+    ></div>
+    <noscript
+      ><p class="container error-banner">
+        Для работы трекера включите JavaScript в браузере.
+      </p></noscript
+    >
+    <script defer src="js/dates.js"></script>
+    <script defer src="js/storage.js"></script>
+    <script defer src="js/demo.js"></script>
+    <script defer src="js/ui.js"></script>
+    <script defer src="js/navigation.js"></script>
+    <script defer src="js/habits.js"></script>
+    <script defer src="js/statistics.js"></script>
+    <script defer src="js/dashboard.js"></script>
+    <script defer src="js/profile.js"></script>
+    <script defer src="js/script.js"></script>
+  </body>
 </html>

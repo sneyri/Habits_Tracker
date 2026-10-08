@@ -1,0 +1,171 @@
+.dashboard-overview {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+.progress-card {
+  background: var(--primary);
+  color: #fff;
+  padding: 26px 30px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.progress-card .eyebrow {
+  color: #c6d9bd;
+}
+.progress-card h2 {
+  font-size: 50px;
+  letter-spacing: -2px;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.progress-card__total {
+  font-size: 24px;
+  color: #bfd0bd;
+  letter-spacing: -0.5px;
+  font-weight: 400;
+}
+.progress-card p:last-child {
+  font-size: 12px;
+  max-width: 220px;
+  color: #d2dfce;
+}
+.progress-ring {
+  width: 126px;
+  height: 126px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+}
+.progress-ring svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.progress-ring circle {
+  fill: none;
+  stroke-width: 5;
+}
+.progress-ring__track {
+  stroke: #ffffff26;
+}
+.progress-ring__value {
+  stroke: #d0e3a0;
+  stroke-linecap: round;
+  transition: stroke-dasharray 200ms ease;
+}
+.progress-ring strong {
+  font-size: 27px;
+  font-weight: 600;
+}
+.progress-ring span {
+  font-size: 10px;
+  color: #d2dfce;
+}
+.metric-card {
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.metric-card p {
+  margin: 13px 0 2px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.metric-card strong {
+  font-size: 30px;
+  font-weight: 650;
+  letter-spacing: -0.8px;
+}
+.metric-card > .muted {
+  margin-top: 4px;
+  font-size: 11px;
+}
+.dashboard-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.dashboard-aside {
+  display: grid;
+  gap: 20px;
+}
+.encouragement {
+  background: #edf0e5;
+  border: 1px solid #e3e8d7;
+  padding: 24px;
+  border-radius: var(--radius);
+  position: relative;
+  overflow: hidden;
+}
+.encouragement .eyebrow {
+  font-size: 10px;
+}
+.encouragement p {
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -0.5px;
+  margin-block: 9px 14px;
+  position: relative;
+  z-index: 1;
+}
+.encouragement .muted {
+  display: block;
+  font-size: 12px;
+  max-width: 250px;
+}
+.encouragement__decoration {
+  position: absolute;
+  font-size: 130px;
+  color: #dae3c6;
+  right: -15px;
+  top: -35px;
+  line-height: 1;
+  transform: rotate(15deg);
+}
+@media (max-width: 1000px) {
+  .dashboard-overview {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .progress-card {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 760px) {
+  .dashboard-columns {
+    grid-template-columns: 1fr;
+  }
+  .dashboard-overview {
+    gap: 12px;
+  }
+  .metric-card {
+    padding: 18px;
+  }
+  .metric-card strong {
+    font-size: 26px;
+  }
+  .progress-card {
+    padding: 23px;
+  }
+  .progress-ring {
+    width: 105px;
+    height: 105px;
+  }
+  .progress-card h2 {
+    font-size: 42px;
+  }
+}

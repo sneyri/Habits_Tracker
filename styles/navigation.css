@@ -1,22 +1,111 @@
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.header__inner {
+  min-height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 28px;
+  font-weight: 750;
+  letter-spacing: -1px;
+}
+.brand__mark {
+  width: 36px;
+  height: 36px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 11px;
+  margin-right: 11px;
+  font-size: 27px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+}
+.brand__dot {
+  color: #98b462;
+}
 .nav__menu {
-    display: flex;
-    justify-content: center;
-    list-style: none;
+  display: flex;
+  list-style: none;
+  padding: 5px;
+  margin: 0;
+  gap: 4px;
+  background: #f6f7f3;
+  border-radius: 10px;
 }
-
 .nav__button {
-    border: none;
-    padding: 10px 30px;
-    background-color: #ffffff;
-
-    transition-duration: 50ms;
+  border: none;
+  padding: 9px 16px;
+  background: transparent;
+  border-radius: 7px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
 }
-
 .nav__button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  color: var(--primary);
+  background: #eaf0e7;
 }
-
-.nav__button:active {
-    transform: scale(0.97);
+.nav__button--active {
+  background: var(--surface);
+  color: var(--primary);
+  box-shadow: 0 1px 5px #253c3110;
+}
+.local-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.local-badge > span {
+  color: #7a9e65;
+  font-size: 9px;
+}
+@media (max-width: 960px) {
+  .local-badge {
+    display: none;
+  }
+}
+@media (max-width: 620px) {
+  .header__inner {
+    padding-top: 16px;
+    padding-bottom: 14px;
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  .header nav,
+  .nav__menu {
+    width: 100%;
+  }
+  .nav__menu {
+    gap: 2px;
+  }
+  .nav__menu li {
+    flex: 1;
+  }
+  .nav__button {
+    width: 100%;
+    padding: 10px 5px;
+    font-size: 12px;
+  }
+  .brand {
+    font-size: 25px;
+  }
+  .brand__mark {
+    width: 30px;
+    height: 30px;
+    font-size: 23px;
+  }
 }

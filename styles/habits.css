@@ -1,0 +1,233 @@
+.habit-list {
+  display: grid;
+}
+.habit-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 19px 0;
+  border-top: 1px solid var(--line);
+  min-width: 0;
+}
+.habit-row:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+.habit-row:last-child {
+  padding-bottom: 0;
+}
+.habit-copy {
+  min-width: 0;
+  flex: 1;
+  overflow-wrap: anywhere;
+}
+.habit-copy .muted {
+  display: block;
+  margin-top: 4px;
+}
+.habit-symbol {
+  --habit-color: #3d7653;
+  --habit-background: #edf3eb;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: var(--habit-background);
+  color: var(--habit-color);
+  font-size: 21px;
+}
+.color-blue {
+  --habit-color: #416b96;
+  --habit-background: #eaf1f9;
+}
+.color-purple {
+  --habit-color: #7c5c9f;
+  --habit-background: #f1edf8;
+}
+.color-orange {
+  --habit-color: #a46a2a;
+  --habit-background: #fbf0e3;
+}
+.color-rose {
+  --habit-color: #a85f7a;
+  --habit-background: #f8edf1;
+}
+.completion-button {
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid #d5ddd2;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--primary);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+}
+.completion-button:hover {
+  border-color: var(--primary);
+  background: var(--soft-green);
+}
+.completion-button[aria-pressed="true"] {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+.habit-row--completed h3 {
+  color: var(--muted);
+}
+.streak-label {
+  color: #8b733d;
+  background: #faf5e9;
+  font-size: 11px;
+  border-radius: 6px;
+  padding: 4px 8px;
+  white-space: nowrap;
+}
+.section-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.habits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.habit-card {
+  padding: 23px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+.habit-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.habit-card__actions {
+  display: flex;
+  gap: 7px;
+}
+.habit-card .icon-button {
+  font-size: 16px;
+}
+.habit-card h3 {
+  overflow-wrap: anywhere;
+}
+.habit-description {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 8px;
+  margin-bottom: 18px;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.habit-card__meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: auto;
+  flex-wrap: wrap;
+  padding-top: 8px;
+}
+.category-label {
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--background);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.habit-card__completion {
+  margin-top: 20px;
+  padding-top: 17px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  font-size: 12px;
+  color: var(--muted);
+}
+.habit-card--completed {
+  border-color: #c9d9c0;
+}
+.habit-card--completed .habit-card__completion {
+  color: var(--primary);
+}
+.empty-state {
+  text-align: center;
+  padding: 40px 22px;
+  width: 100%;
+  grid-column: 1 / -1;
+}
+.empty-state__icon {
+  font-size: 38px;
+  color: #86a378;
+  display: block;
+  margin-bottom: 10px;
+}
+.empty-state h3 {
+  font-size: 19px;
+}
+.empty-state p {
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 310px;
+  margin: 10px auto 22px;
+}
+.habits-grid > .empty-state {
+  background: var(--surface);
+  border: 1px dashed #cdd9c6;
+  border-radius: var(--radius);
+  padding-block: 60px;
+}
+@media (max-width: 1000px) {
+  .habits-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 620px) {
+  .habits-grid {
+    grid-template-columns: 1fr;
+  }
+  .habit-row {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr) 44px;
+    gap: 10px;
+  }
+  .habit-row .habit-symbol {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+  .habit-row .habit-copy {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .completion-button {
+    width: 44px;
+    height: 44px;
+  }
+  .habit-row .completion-button {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+  }
+  .habit-row .streak-label {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: start;
+  }
+}

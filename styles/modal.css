@@ -1,0 +1,127 @@
+.modal {
+  width: min(500px, calc(100% - 32px));
+  max-height: calc(100dvh - 40px);
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  color: var(--text);
+  background: var(--surface);
+  box-shadow: 0 24px 90px #13251933;
+}
+.modal::backdrop {
+  background: #1e31265c;
+  backdrop-filter: blur(3px);
+}
+.modal--small {
+  width: min(430px, calc(100% - 32px));
+}
+.modal-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 24px;
+}
+.modal-heading h2 {
+  font-size: 24px;
+}
+.modal form > label {
+  display: block;
+  margin: 17px 0 7px;
+  font-size: 13px;
+  font-weight: 600;
+}
+input:not([type="radio"]),
+textarea,
+select {
+  width: 100%;
+  background: #fcfdfb;
+  border: 1px solid #dce2d7;
+  border-radius: 9px;
+  color: var(--text);
+  padding: 11px 12px;
+  min-height: 46px;
+}
+textarea {
+  resize: vertical;
+}
+input::placeholder,
+textarea::placeholder {
+  color: #959d93;
+  font-size: 13px;
+}
+.color-fieldset {
+  border: 0;
+  padding: 0;
+  margin: 20px 0 0;
+}
+.color-fieldset legend {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.color-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.color-choice {
+  position: relative;
+  display: inline-flex;
+  padding: 3px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+}
+.color-choice:has(input:checked) {
+  border-color: var(--text);
+}
+.color-choice input {
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  margin: 0;
+  cursor: pointer;
+  background: #739767;
+}
+.color-choice--blue input {
+  background: #6f98ba;
+}
+.color-choice--purple input {
+  background: #aa8ac0;
+}
+.color-choice--orange input {
+  background: #dba76a;
+}
+.color-choice--rose input {
+  background: #ca8aa2;
+}
+.color-choice span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.form-error {
+  color: var(--danger);
+  font-size: 13px;
+  margin-top: 12px;
+}
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 25px;
+}
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+@media (max-width: 620px) {
+  .modal {
+    padding: 22px;
+  }
+  .modal-actions .button {
+    padding-inline: 13px;
+  }
+}
