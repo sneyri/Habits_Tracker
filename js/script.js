@@ -1,7 +1,8 @@
 (() => {
   const { toDateKey } = window.HabitTracker.dates;
   const { storage, STORAGE_KEYS } = window.HabitTracker;
-  const { createDemoData } = window.HabitTracker.demo;
+  const { prepareInitialData } = window.HabitTracker.defaults;
+  const { initAnimations, finishLoading } = window.HabitTracker.animations;
   const { initNavigation } = window.HabitTracker.navigation;
   const { initHabitDialogs, renderHabits, toggleCompletion } =
     window.HabitTracker.habits;
@@ -13,6 +14,7 @@
     window.HabitTracker.ui;
 
   function initApp() {
+    initAnimations();
     initNavigation();
     let habits = [];
     let completions = [];
@@ -34,20 +36,17 @@
         let savedHabits = storage.getHabits();
         let savedCompletions = storage.getCompletions();
         const existingProfile = storage.getProfile();
-        let addedDemoCount = 0;
         let savedProfile = existingProfile ?? {
           name: "",
           startedAt: toDateKey(),
         };
-        if (!savedProfile.demoSeeded) {
-          const demo = createDemoData(savedHabits, savedCompletions);
-          if (demo.addedCount > 0) {
-            storage.saveHabitsAndCompletions(demo.habits, demo.completions);
-            savedHabits = demo.habits;
-            savedCompletions = demo.completions;
-            addedDemoCount = demo.addedCount;
-          }
-          savedProfile = { ...savedProfile, demoSeeded: true };
+        if (!savedProfile.defaultsInitialized) {
+          const initial = prepareInitialData(savedHabits, savedCompletions);
+          storage.saveHabitsAndCompletions(initial.habits, initial.completions);
+          savedHabits = initial.habits;
+          savedCompletions = initial.completions;
+          const { demoSeeded, ...profileSettings } = savedProfile;
+          savedProfile = { ...profileSettings, defaultsInitialized: true };
           storage.saveProfile(savedProfile);
         }
         habits = savedHabits;
@@ -56,11 +55,6 @@
         ready = true;
         clearStorageError();
         render();
-        if (addedDemoCount > 0) {
-          notify(
-            `Добавлено ${addedDemoCount} примеров привычек для знакомства с трекером.`,
-          );
-        }
       } catch {
         ready = false;
         showStorageError(
@@ -170,7 +164,11 @@
     window.addEventListener("focus", refreshDay);
     document.addEventListener("visibilitychange", refreshDay);
     setInterval(refreshDay, 30000);
-    loadData();
+    try {
+      loadData();
+    } finally {
+      finishLoading();
+    }
   }
 
   initApp();

@@ -5,6 +5,8 @@
 
     function showSection(sectionId, focus = false) {
       if (![...sections].some((section) => section.id === sectionId)) return;
+      const selectedSection = document.getElementById(sectionId);
+      const changed = !selectedSection.classList.contains("section--active");
       sections.forEach((section) =>
         section.classList.toggle("section--active", section.id === sectionId),
       );
@@ -14,6 +16,8 @@
         if (active) button.setAttribute("aria-current", "page");
         else button.removeAttribute("aria-current");
       });
+      if (changed)
+        window.HabitTracker.animations.animateSection(selectedSection);
       if (focus) {
         document.getElementById("main-content").focus({ preventScroll: true });
         window.scrollTo({ top: 0, behavior: "instant" });

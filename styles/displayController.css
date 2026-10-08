@@ -3,15 +3,4 @@
 }
 .section--active {
   display: block;
-  animation: section-appear 180ms ease;
-}
-@keyframes section-appear {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }

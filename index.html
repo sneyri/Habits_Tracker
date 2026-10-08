@@ -18,6 +18,19 @@
   </head>
   <body>
     <a class="skip-link" href="#main-content">Перейти к содержимому</a>
+    <div
+      id="app-loader"
+      class="app-loader"
+      role="status"
+      aria-live="polite"
+      hidden
+    >
+      <span class="app-loader__mark" aria-hidden="true">↗</span>
+      <span>Загружаем ваш ритм</span>
+      <span class="app-loader__dots" aria-hidden="true"
+        ><span></span><span></span><span></span
+      ></span>
+    </div>
     <header class="header">
       <div class="container header__inner">
         <a
@@ -444,8 +457,9 @@
     >
     <script defer src="js/dates.js"></script>
     <script defer src="js/storage.js"></script>
-    <script defer src="js/demo.js"></script>
+    <script defer src="js/defaults.js"></script>
     <script defer src="js/ui.js"></script>
+    <script defer src="js/animations.js"></script>
     <script defer src="js/navigation.js"></script>
     <script defer src="js/habits.js"></script>
     <script defer src="js/statistics.js"></script>
